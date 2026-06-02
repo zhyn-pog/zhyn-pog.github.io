@@ -17,6 +17,15 @@
     <!-- 鼠标星星掉落画布 -->
     <canvas id="star-canvas"></canvas>
 
+    <!-- HELLO字母动画容器 -->
+    <div class="hello-container" id="helloContainer">
+        <div class="hello-letter" data-letter="H">H</div>
+        <div class="hello-letter" data-letter="E">E</div>
+        <div class="hello-letter" data-letter="L">L</div>
+        <div class="hello-letter" data-letter="L">L</div>
+        <div class="hello-letter" data-letter="O">O</div>
+    </div>
+
     <!-- 主容器 -->
     <div class="main-container" id="mainContainer">
 
@@ -25,18 +34,19 @@
             <h1 class="site-title">welcome to my site !</h1>
         </div>
 
-        <!-- 左上角星星 -->
+        <!-- 左上角四角星 -->
         <div class="star star-top-left">
             <svg viewBox="0 0 100 100" class="star-svg">
-                <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35"
+                <!-- 四角星：菱形形状 -->
+                <polygon points="50,5 60,40 95,50 60,60 50,95 40,60 5,50 40,40"
                          fill="white" stroke="black" stroke-width="2"/>
             </svg>
         </div>
 
-        <!-- 右下角星星 -->
+        <!-- 右下角四角星 -->
         <div class="star star-bottom-right">
             <svg viewBox="0 0 100 100" class="star-svg">
-                <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35"
+                <polygon points="50,5 60,40 95,50 60,60 50,95 40,60 5,50 40,40"
                          fill="white" stroke="black" stroke-width="2"/>
             </svg>
         </div>
@@ -69,33 +79,7 @@
                     <!-- 键盘底座 -->
                     <div class="laptop-base"></div>
                 </div>
-
-                <!-- 便签（初始隐藏在屏幕右侧边缘后面） -->
-                <div class="sticky-note" id="stickyNote">
-                    <div class="note-content">
-                        <p class="note-title">TIPS:</p>
-                        <p class="note-text">CLICK THE LOGIN BUTTON!</p>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- 便签展开后的全屏覆盖层 -->
-    <div class="note-overlay" id="noteOverlay">
-        <div class="note-expanded-card" id="noteExpandedCard">
-            <div class="note-expanded-content">
-                <p class="note-expanded-title">TIPS:</p>
-                <p class="note-expanded-text">CLICK THE LOGIN BUTTON!</p>
-            </div>
-            <!-- 返回按钮 -->
-            <button class="back-btn" id="backBtn">
-                <svg viewBox="0 0 100 100" class="back-btn-svg">
-                    <circle cx="50" cy="50" r="45" fill="#F5C518" stroke="#000" stroke-width="4"/>
-                    <path d="M65 25 L35 50 L65 75" fill="none" stroke="#000" stroke-width="6"
-                          stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
         </div>
     </div>
 

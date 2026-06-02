@@ -29,7 +29,6 @@ body {
     background: rgba(255, 255, 255, 0.45);
     border-radius: 50%;
     pointer-events: none;
-    /* 固定漂浮的微弱动画 */
     animation: float-drift var(--drift-duration, 8s) ease-in-out infinite alternate;
     animation-delay: var(--drift-delay, 0s);
 }
@@ -48,6 +47,28 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: 2;
+}
+
+/* ==================== HELLO字母动画 ==================== */
+.hello-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+    pointer-events: none;
+}
+
+.hello-letter {
+    font-family: 'Darumadrop One', cursive;
+    font-size: 200px;
+    color: white;
+    -webkit-text-stroke: 2px #000;
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    position: absolute;
+    opacity: 0;
+    will-change: transform;
 }
 
 /* ==================== 主容器 ==================== */
@@ -74,27 +95,27 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 28px 0 24px 0;
+    padding: 15px 0 24px 0; /* 减小上边距，让banner向上移动 */
     text-align: center;
     z-index: 15;
 }
 
 .site-title {
     font-family: 'Darumadrop One', cursive;
-    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-size: clamp(2.5rem, 8vw, 9rem);
     color: white;
+    /* 细黑色描边效果 + 20%透明度阴影 */
+    -webkit-text-stroke: 1px #000;
     text-shadow:
-        -3px -3px 0 #000,
-        3px -3px 0 #000,
-        -3px 3px 0 #000,
-        3px 3px 0 #000,
-        0 0 0 #000;
-    letter-spacing: 4px;
+        3px 3px 0 rgba(0, 0, 0, 0.2),
+        6px 6px 0 rgba(0, 0, 0, 0.1);
+    letter-spacing: 5px;
     white-space: nowrap;
     line-height: 1.2;
+    width: auto;
 }
 
-/* ==================== 星星样式 ==================== */
+/* ==================== 四角星样式 ==================== */
 .star {
     position: absolute;
     width: 80px;
@@ -126,13 +147,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 45px; /* 调整这个值来控制电脑向下的距离 */
 }
 
 /* ==================== MacBook 电脑样式 ==================== */
 .laptop-container {
     position: relative;
     z-index: 20;
-    /* 不再需要 shift-left */
 }
 
 .laptop {
@@ -143,16 +164,17 @@ body {
     align-items: center;
 }
 
-/* 屏幕部分 */
+/* 屏幕部分 - 高度占页面60%，不挡到banner */
 .laptop-screen {
     width: 92%;
-    height: 52vh;
-    max-height: 480px;
+    height: 60vh;
+    max-height: 540px;
     background: #1a1a1a;
     border-radius: 20px 20px 0 0;
     padding: 10px 10px 0 10px;
     box-shadow:
-        0 0 0 2px #333,
+        0 0 0 3px white,
+        0 0 0 5px #333,
         0 10px 50px rgba(0, 0, 0, 0.35);
     position: relative;
     overflow: hidden;
@@ -248,7 +270,10 @@ body {
     background: linear-gradient(to bottom, #c0c0c0, #a0a0a0);
     border-radius: 0 0 12px 12px;
     position: relative;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+    box-shadow:
+        0 0 0 3px white,
+        0 0 0 5px #333,
+        0 6px 24px rgba(0, 0, 0, 0.25);
 }
 
 .laptop-base::before {
@@ -263,160 +288,6 @@ body {
     border-radius: 0 0 4px 4px;
 }
 
-/* ==================== 便签样式（隐藏在屏幕右侧后面） ==================== */
-.sticky-note {
-    position: absolute;
-    top: 50%;
-    right: -60px;           /* 大部分被屏幕遮挡 */
-    transform: translateY(-50%) rotate(3deg);
-    width: 160px;
-    min-height: 140px;
-    background: #f5f5f5;
-    padding: 15px;
-    box-shadow:
-        2px 2px 10px rgba(0, 0, 0, 0.15),
-        0 0 0 1px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.4s ease;
-    z-index: 19;  /* 低于屏幕 z-index，被屏幕遮挡 */
-    /* 褶皱效果 */
-    background-image:
-        linear-gradient(135deg, rgba(0,0,0,0.03) 0%, transparent 50%),
-        linear-gradient(225deg, rgba(0,0,0,0.02) 0%, transparent 40%),
-        linear-gradient(45deg, rgba(255,255,255,0.5) 0%, transparent 60%);
-}
-
-/* 折角 */
-.sticky-note::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 28px;
-    height: 28px;
-    background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%);
-    box-shadow: -2px -2px 3px rgba(0,0,0,0.1);
-}
-
-/* 鼠标靠近时：向右滑出约 40% 宽度 */
-.sticky-note:hover {
-    transform: translateY(-50%) rotate(0deg) translateX(64px);
-    box-shadow:
-        5px 5px 18px rgba(0, 0, 0, 0.22),
-        0 0 0 1px rgba(0, 0, 0, 0.05);
-}
-
-.note-content {
-    font-family: 'Darumadrop One', cursive;
-    color: #333;
-}
-
-.note-title {
-    font-size: 1rem;
-    margin-bottom: 8px;
-    color: #666;
-}
-
-.note-text {
-    font-size: 1.1rem;
-    line-height: 1.4;
-    color: #333;
-}
-
-/* ==================== 便签展开覆盖层 ==================== */
-.note-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* 初始隐藏 */
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.45s ease;
-}
-
-.note-overlay.show {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* 展开的便签卡片：占页面 80% */
-.note-expanded-card {
-    position: relative;
-    width: 80vw;
-    max-width: 900px;
-    min-height: 50vh;
-    background: #f5f5f5;
-    padding: 50px 60px;
-    border-radius: 6px;
-    box-shadow:
-        6px 6px 30px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(0, 0, 0, 0.06);
-    /* 褶皱 */
-    background-image:
-        linear-gradient(135deg, rgba(0,0,0,0.03) 0%, transparent 50%),
-        linear-gradient(225deg, rgba(0,0,0,0.02) 0%, transparent 40%),
-        linear-gradient(45deg, rgba(255,255,255,0.5) 0%, transparent 60%);
-    transform: scale(0.92);
-    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.note-overlay.show .note-expanded-card {
-    transform: scale(1);
-}
-
-.note-expanded-content {
-    font-family: 'Darumadrop One', cursive;
-}
-
-.note-expanded-title {
-    font-size: 1.6rem;
-    color: #666;
-    margin-bottom: 16px;
-}
-
-.note-expanded-text {
-    font-size: 2rem;
-    line-height: 1.5;
-    color: #333;
-}
-
-/* ==================== 返回按钮（圆形涂鸦风格） ==================== */
-.back-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 56px;
-    height: 56px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    /* 涂鸦风格阴影 */
-    filter: drop-shadow(2px 2px 0 #000);
-}
-
-.back-btn-svg {
-    width: 100%;
-    height: 100%;
-}
-
-/* 悬停：向内收缩（模拟按下） */
-.back-btn:hover {
-    transform: scale(0.85);
-}
-
-.back-btn:active {
-    transform: scale(0.75);
-}
-
 /* ==================== 响应式适配 ==================== */
 @media (max-width: 1024px) {
     .laptop {
@@ -424,17 +295,16 @@ body {
     }
 
     .laptop-screen {
-        height: 46vh;
-    }
-
-    .sticky-note:hover {
-        transform: translateY(-50%) rotate(0deg) translateX(50px);
+        height: 58vh;
     }
 }
 
 @media (max-width: 768px) {
     .site-title {
         letter-spacing: 1px;
+        text-shadow:
+            1px 1px 0 #000,
+            2px 2px 0 #000;
     }
 
     .star {
@@ -447,38 +317,11 @@ body {
     }
 
     .laptop-screen {
-        height: 40vh;
+        height: 55vh;
     }
 
     .avatar-circle {
         width: 80px;
         height: 80px;
-    }
-
-    .sticky-note {
-        right: -40px;
-        width: 120px;
-        min-height: 100px;
-    }
-
-    .sticky-note:hover {
-        transform: translateY(-50%) rotate(0deg) translateX(40px);
-    }
-
-    .note-expanded-card {
-        width: 90vw;
-        padding: 30px 24px;
-        min-height: 40vh;
-    }
-
-    .note-expanded-text {
-        font-size: 1.4rem;
-    }
-
-    .back-btn {
-        width: 44px;
-        height: 44px;
-        top: 14px;
-        right: 14px;
     }
 }
