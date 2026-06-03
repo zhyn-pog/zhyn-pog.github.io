@@ -1,11 +1,39 @@
 /**
  * Dashboard页面交互脚本
- * 包含：背景波点粒子、鼠标星星掉落
+ * 包含：确认跳转覆盖层、背景波点粒子、鼠标星星掉落
  */
 
 // ==================== DOM 元素获取 ====================
 const particlesContainer = document.getElementById('particles-container');
 const starCanvas = document.getElementById('star-canvas');
+const notebookBtn = document.getElementById('notebookBtn');
+const confirmOverlay = document.getElementById('confirmOverlay');
+const confirmOkBtn = document.getElementById('confirmOkBtn');
+const confirmBackBtn = document.getElementById('confirmBackBtn');
+
+// ==================== 确认跳转覆盖层 ====================
+
+notebookBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    confirmOverlay.classList.add('show');
+});
+
+confirmOkBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    window.location.href = 'https://www.wandercc0321.top/';
+});
+
+confirmBackBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    confirmOverlay.classList.remove('show');
+});
+
+// 点击遮罩空白区域关闭
+confirmOverlay.addEventListener('click', (e) => {
+    if (e.target === confirmOverlay) {
+        confirmOverlay.classList.remove('show');
+    }
+});
 
 // ==================== 背景波点粒子系统 ====================
 

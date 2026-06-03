@@ -78,7 +78,6 @@ body {
     z-index: 50;
 }
 
-/* 四角装饰 */
 .frame-corner {
     position: absolute;
     width: 80px;
@@ -93,87 +92,22 @@ body {
     border-radius: 4px;
 }
 
-/* 左上角 - 水平+垂直 */
-.corner-tl {
-    top: 0;
-    left: 0;
-}
-.corner-tl::before {
-    top: 0;
-    left: 0;
-    width: 80px;
-    height: 12px;
-    border-radius: 20px 20px 0 0;
-}
-.corner-tl::after {
-    top: 0;
-    left: 0;
-    width: 12px;
-    height: 80px;
-    border-radius: 20px 0 0 0;
-}
+.corner-tl { top: 0; left: 0; }
+.corner-tl::before { top: 0; left: 0; width: 80px; height: 12px; border-radius: 20px 20px 0 0; }
+.corner-tl::after { top: 0; left: 0; width: 12px; height: 80px; border-radius: 20px 0 0 0; }
 
-/* 右上角 */
-.corner-tr {
-    top: 0;
-    right: 0;
-}
-.corner-tr::before {
-    top: 0;
-    right: 0;
-    width: 80px;
-    height: 12px;
-    border-radius: 20px 20px 0 0;
-}
-.corner-tr::after {
-    top: 0;
-    right: 0;
-    width: 12px;
-    height: 80px;
-    border-radius: 0 20px 0 0;
-}
+.corner-tr { top: 0; right: 0; }
+.corner-tr::before { top: 0; right: 0; width: 80px; height: 12px; border-radius: 20px 20px 0 0; }
+.corner-tr::after { top: 0; right: 0; width: 12px; height: 80px; border-radius: 0 20px 0 0; }
 
-/* 左下角 */
-.corner-bl {
-    bottom: 0;
-    left: 0;
-}
-.corner-bl::before {
-    bottom: 0;
-    left: 0;
-    width: 80px;
-    height: 12px;
-    border-radius: 0 0 0 20px;
-}
-.corner-bl::after {
-    bottom: 0;
-    left: 0;
-    width: 12px;
-    height: 80px;
-    border-radius: 0 0 0 20px;
-}
+.corner-bl { bottom: 0; left: 0; }
+.corner-bl::before { bottom: 0; left: 0; width: 80px; height: 12px; border-radius: 0 0 0 20px; }
+.corner-bl::after { bottom: 0; left: 0; width: 12px; height: 80px; border-radius: 0 0 0 20px; }
 
-/* 右下角 */
-.corner-br {
-    bottom: 0;
-    right: 0;
-}
-.corner-br::before {
-    bottom: 0;
-    right: 0;
-    width: 80px;
-    height: 12px;
-    border-radius: 0 0 20px 0;
-}
-.corner-br::after {
-    bottom: 0;
-    right: 0;
-    width: 12px;
-    height: 80px;
-    border-radius: 0 0 20px 0;
-}
+.corner-br { bottom: 0; right: 0; }
+.corner-br::before { bottom: 0; right: 0; width: 80px; height: 12px; border-radius: 0 0 20px 0; }
+.corner-br::after { bottom: 0; right: 0; width: 12px; height: 80px; border-radius: 0 0 20px 0; }
 
-/* 底部键盘装饰条 */
 .frame-keyboard {
     position: absolute;
     bottom: 0;
@@ -208,30 +142,88 @@ body {
     max-width: 45%;
 }
 
-.character-placeholder {
-    width: 280px;
-    height: 380px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 3px dashed rgba(0, 0, 0, 0.2);
-    border-radius: 16px;
+.character-image {
+    width: 420px;
+    height: 520px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    position: relative;
+    cursor: pointer;
 }
 
-.placeholder-icon {
-    opacity: 0.5;
+.character-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: absolute;
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.placeholder-text {
+/* 默认显示主图 */
+.character-main {
+    opacity: 1;
+    transform: scale(1);
+    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.2));
+}
+
+/* 悬停图默认隐藏 */
+.character-hover {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.25));
+}
+
+/* 悬停时切换 */
+.character-image:hover .character-main {
+    opacity: 0;
+    transform: scale(0.97);
+}
+
+.character-image:hover .character-hover {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 悬停气泡提示 */
+.hover-tip {
+    position: absolute;
+    right: -30px;
+    bottom: 10%;
+    background: rgba(255, 255, 255, 0.75);
+    border: 2px solid #000;
+    border-radius: 12px;
+    padding: 6px 14px;
     font-family: 'Darumadrop One', cursive;
-    font-size: 1rem;
-    color: rgba(0, 0, 0, 0.3);
+    font-size: 0.9rem;
+    color: #000;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 5;
+    /* 小尾巴 */
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.15);
 }
 
-/* 角色周围装饰元素 */
+.hover-tip::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 20px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid rgba(255, 255, 255, 0.75);
+}
+
+.character-image:hover .hover-tip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .character-deco {
     position: absolute;
     pointer-events: none;
@@ -241,12 +233,6 @@ body {
     top: 15%;
     right: 10%;
     animation: float-gentle 3s ease-in-out infinite alternate;
-}
-
-.deco-pin {
-    top: 25%;
-    left: 5%;
-    animation: float-gentle 4s ease-in-out infinite alternate-reverse;
 }
 
 @keyframes float-gentle {
@@ -262,67 +248,135 @@ body {
     align-items: center;
     justify-content: center;
     max-width: 55%;
+    overflow: visible;
 }
 
-/* 背景大星星 */
-.bg-star-large {
+/* ==================== 绿色斜纹背景卡片 ==================== */
+.green-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* 位于面板左侧，与面板有交集被覆盖，大小比dashboard面板小20px */
+    transform: translate(-80%, -40%) rotate(-7deg);
+    width: 430px;
+    height: 390px;
+    background: #8B9A6D;
+    border-radius: 16px;
+    z-index: 1;
+    overflow: hidden;
+   opacity: 0.85;
+}
+
+.green-card-stripes {
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 15px,
+        rgba(255, 255, 255, 0.3) 15px,
+        rgba(255, 255, 255, 0.3) 18px
+    );
+    position: absolute;
+    top: -50%;
+    left: -50%;
+}
+
+/* 绿色卡片上的白色四角星 */
+.green-card-star {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0.25;
     pointer-events: none;
+    filter: drop-shadow(3px 3px 0 #FFD93D);
+    z-index: 5;
+    opacity: 1;
 }
 
-/* Dashboard面板 */
+/* ==================== 星星装饰 - 不裁切 ==================== */
+.star-deco {
+    position: absolute;
+    pointer-events: none;
+    overflow: visible;
+}
+
+/* 左上角星星 - 白色填充 + 黑色阴影 */
+.star-deco-tl {
+    top: -40px;
+    left: -40px;
+    z-index: 10;
+    filter: drop-shadow(4px 4px 0 #000);
+}
+
+/* 右下角星星 - 黑色阴影 + 最高层级挡按钮边框 */
+.star-deco-br {
+    bottom: -50px;
+    right: -50px;
+    z-index: 20;
+    filter: drop-shadow(4px 4px 0 #000);
+}
+
+/* ==================== Dashboard面板 ==================== */
 .dashboard-panel {
     position: relative;
     width: 100%;
     max-width: 420px;
     background: #F5C518;
-    border: 3px solid #000;
+    border: 4px solid #000;
     border-radius: 24px;
     padding: 40px 36px;
-    box-shadow: 6px 6px 0 #000;
-    transform: rotate(-2deg);
+    box-shadow: 8px 8px 0 #000;
+    transform: rotate(10deg);
     z-index: 2;
+    overflow: visible;
 }
 
-/* Dashboard标题 - 最大层级 */
+/* ==================== Dashboard标题 ==================== */
 .dashboard-title {
     font-family: 'Darumadrop One', cursive;
     font-size: clamp(5rem, 7vw, 6rem);
-    color: #FF9F43;
-    -webkit-text-stroke: 2px #000;
+    color: #FF8C42;
+    -webkit-text-stroke: 3px #000;
     text-shadow:
-        4px 4px 0 #000,
-        6px 6px 0 rgba(0, 0, 0, 0.3);
+        5px 5px 0 #000,
+        8px 8px 0 rgba(0, 0, 0, 0.3);
     text-align: center;
-    margin-top: -60px;        /* 向上溢出面板 */
-    margin-left: -40px;
-    margin-bottom: 28px;      /* 调整与下方内容的距离 */
+    margin-top: -70px;
+    margin-left: -50px;
+    margin-bottom: 24px;
     letter-spacing: 3px;
     position: relative;
     z-index: 10;
+    /* 向右倾斜 */
+    transform: rotate(-10deg);
+    transform-origin: center center;
 }
 
-/* 按钮容器 */
-.dashboard-buttons {
+/* ==================== 白色内框 ==================== */
+.button-box {
+    background: #FFFFFF;
+    border: 3px solid #000;
+    border-radius: 20px;
+    padding: 24px 28px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    box-shadow: 5px 5px 0 #000;
+    /* 向上扩展靠近标题 */
+    margin-top: -10px;
 }
 
-/* Dashboard按钮 - 中等层级 */
+/* ==================== Dashboard按钮 - 黄色背景 ==================== */
 .dash-btn {
     font-family: 'Darumadrop One', cursive;
     width: 100%;
     padding: 14px 24px;
     background: #FFE066;
-    border: 2px solid #000;
+    border: 3px solid #000;
     border-radius: 16px;
     cursor: pointer;
-    box-shadow: 4px 4px 0 #000;
+    box-shadow: 5px 5px 0 #000;
     transition: all 0.2s ease;
     position: relative;
     z-index: 3;
@@ -330,32 +384,189 @@ body {
 
 .dash-btn:hover {
     transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #000;
+    box-shadow: 7px 7px 0 #000;
     background: #FFD93D;
 }
 
 .dash-btn:active {
     transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000;
+}
+
+.dash-btn-text {
+    font-family: 'Darumadrop One', cursive;
+    font-size: clamp(1.35rem, 2.7vw, 1.75rem);
+    color: #000;
+    letter-spacing: 2px;
+    -webkit-text-stroke: 1px #FFFFFF;
+}
+
+/* 按钮悬停气泡提示 */
+.btn-tip {
+    position: absolute;
+    bottom: 105%;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background: rgba(255, 255, 255, 0.78);
+    border: 2px solid #000;
+    border-radius: 10px;
+    padding: 5px 12px;
+    font-family: 'ZCOOL KuaiLe', cursive;
+    font-size: 0.85rem;
+    color: #000;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* 气泡小尾巴 */
+.btn-tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid rgba(255, 255, 255, 0.78);
+}
+
+.dash-btn:hover .btn-tip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ==================== 确认跳转覆盖层 ==================== */
+.confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.confirm-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 半透明暗色遮罩 */
+.confirm-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 0;
+}
+
+/* 纸片容器 */
+.confirm-paper {
+    position: relative;
+    width: 55vw;
+    max-width: 600px;
+    height: 30vh;
+    max-height: 280px;
+    z-index: 1;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+}
+
+.confirm-overlay.show .confirm-paper {
+    transform: scale(1);
+}
+
+.confirm-paper-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 纸片上的文字内容 */
+.confirm-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 75%;
+    z-index: 2;
+}
+
+.confirm-text {
+    font-family: 'ZCOOL KuaiLe', cursive;
+    font-size: 1.15rem;
+    color: #000;
+    line-height: 1.8;
+    margin-bottom: 24px;
+}
+
+/* OK按钮 - 黄色 + 黑色描边 + 黑色阴影 */
+.confirm-btn {
+    font-family: 'Darumadrop One', cursive;
+    font-size: 1.2rem;
+    padding: 10px 40px;
+    background: #F5C518;
+    border: 3px solid #000;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #000;
+    color: #000;
+    letter-spacing: 2px;
+    transition: all 0.2s ease;
+}
+
+.confirm-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #000;
+    background: #FFD93D;
+}
+
+.confirm-btn:active {
+    transform: translate(2px, 2px);
     box-shadow: 1px 1px 0 #000;
 }
 
-/* 按钮文字 - 较小层级 */
-.dash-btn-text {
-    font-family: 'Darumadrop One', cursive;
-    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-    color: #000;
-    letter-spacing: 2px;
+/* 返回按钮 - 左上角圆形涂鸦 */
+.confirm-back-btn {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+    filter: drop-shadow(2px 2px 0 #000);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 右下角小星星 */
-.bg-star-small {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    bottom: -10px;
-    right: -20px;
-    z-index: 1;
+.confirm-back-btn:hover {
+    transform: scale(0.85);
+}
 
+.confirm-back-btn:active {
+    transform: scale(0.75);
 }
 
 /* ==================== 响应式适配 ==================== */
@@ -365,13 +576,18 @@ body {
         gap: 24px;
     }
 
-    .character-placeholder {
-        width: 220px;
-        height: 300px;
+    .character-image {
+        width: 300px;
+        height: 400px;
     }
 
     .dashboard-panel {
         padding: 30px 24px;
+    }
+
+    .green-card {
+        width: 220px;
+        height: 300px;
     }
 
     .frame-corner {
@@ -387,6 +603,10 @@ body {
     .corner-tl::after, .corner-tr::after,
     .corner-bl::after, .corner-br::after {
         height: 60px;
+    }
+
+    .confirm-paper {
+        width: 75vw;
     }
 }
 
@@ -401,9 +621,9 @@ body {
         max-width: 100%;
     }
 
-    .character-placeholder {
-        width: 180px;
-        height: 240px;
+    .character-image {
+        width: 200px;
+        height: 280px;
     }
 
     .dashboard-section {
@@ -416,8 +636,22 @@ body {
         transform: rotate(0deg);
     }
 
-    .bg-star-large {
+    .green-card {
         display: none;
+    }
+
+    .star-deco-tl {
+        top: -20px;
+        left: -20px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .star-deco-br {
+        bottom: -30px;
+        right: -30px;
+        width: 50px;
+        height: 50px;
     }
 
     .frame-corner {
@@ -433,5 +667,13 @@ body {
     .corner-tl::after, .corner-tr::after,
     .corner-bl::after, .corner-br::after {
         height: 40px;
+    }
+
+    .confirm-paper {
+        width: 90vw;
+    }
+
+    .confirm-text {
+        font-size: 0.95rem;
     }
 }
