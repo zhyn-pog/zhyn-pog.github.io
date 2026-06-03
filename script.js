@@ -213,6 +213,8 @@ function startLoadingAnimation() {
             clearInterval(loadingInterval);
             setTimeout(() => {
                 console.log('登录成功！');
+                // 滑动过渡跳转到dashboard
+                transitionToDashboard();
             }, 200);
         }
 
@@ -371,3 +373,23 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('resize', () => {
     resizeCanvas();
 });
+
+// ==================== 页面滑动过渡 ====================
+
+/**
+ * 首页向左滑出，然后跳转到dashboard
+ */
+function transitionToDashboard() {
+    const mainContainer = document.getElementById('mainContainer');
+    const helloContainer = document.getElementById('helloContainer');
+
+    // 整个页面内容向左滑出
+    document.body.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease';
+    document.body.style.transform = 'translateX(-100%)';
+    document.body.style.opacity = '0';
+
+    // 动画结束后跳转
+    setTimeout(() => {
+        window.location.href = 'dashboard.html';
+    }, 600);
+}

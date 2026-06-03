@@ -1,0 +1,437 @@
+/* ==================== 基础重置和全局样式 ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Darumadrop One', cursive;
+    background-color: #F5C518;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ==================== 背景波点粒子容器 ==================== */
+#particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float-drift var(--drift-duration, 8s) ease-in-out infinite alternate;
+    animation-delay: var(--drift-delay, 0s);
+}
+
+@keyframes float-drift {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(var(--drift-x, 10px), var(--drift-y, -15px)); }
+}
+
+/* ==================== 鼠标星星画布 ==================== */
+#star-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ==================== 页面入场动画 ==================== */
+.page-transition {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    z-index: 10;
+    animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* ==================== 电脑外框装饰 ==================== */
+.laptop-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+}
+
+/* 四角装饰 */
+.frame-corner {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+}
+
+.frame-corner::before,
+.frame-corner::after {
+    content: '';
+    position: absolute;
+    background: linear-gradient(to bottom, #c0c0c0, #a0a0a0);
+    border-radius: 4px;
+}
+
+/* 左上角 - 水平+垂直 */
+.corner-tl {
+    top: 0;
+    left: 0;
+}
+.corner-tl::before {
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 12px;
+    border-radius: 20px 20px 0 0;
+}
+.corner-tl::after {
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 80px;
+    border-radius: 20px 0 0 0;
+}
+
+/* 右上角 */
+.corner-tr {
+    top: 0;
+    right: 0;
+}
+.corner-tr::before {
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 12px;
+    border-radius: 20px 20px 0 0;
+}
+.corner-tr::after {
+    top: 0;
+    right: 0;
+    width: 12px;
+    height: 80px;
+    border-radius: 0 20px 0 0;
+}
+
+/* 左下角 */
+.corner-bl {
+    bottom: 0;
+    left: 0;
+}
+.corner-bl::before {
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 12px;
+    border-radius: 0 0 0 20px;
+}
+.corner-bl::after {
+    bottom: 0;
+    left: 0;
+    width: 12px;
+    height: 80px;
+    border-radius: 0 0 0 20px;
+}
+
+/* 右下角 */
+.corner-br {
+    bottom: 0;
+    right: 0;
+}
+.corner-br::before {
+    bottom: 0;
+    right: 0;
+    width: 80px;
+    height: 12px;
+    border-radius: 0 0 20px 0;
+}
+.corner-br::after {
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 80px;
+    border-radius: 0 0 20px 0;
+}
+
+/* 底部键盘装饰条 */
+.frame-keyboard {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    max-width: 500px;
+    height: 14px;
+    background: linear-gradient(to bottom, #c0c0c0, #a0a0a0);
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 0 0 3px white, 0 0 0 5px #333;
+}
+
+/* ==================== 屏幕内容区域 ==================== */
+.screen-area {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 60px;
+    gap: 40px;
+}
+
+/* ==================== 左侧 - 角色插画区 ==================== */
+.character-section {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 45%;
+}
+
+.character-placeholder {
+    width: 280px;
+    height: 380px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 3px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.placeholder-icon {
+    opacity: 0.5;
+}
+
+.placeholder-text {
+    font-family: 'Darumadrop One', cursive;
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+/* 角色周围装饰元素 */
+.character-deco {
+    position: absolute;
+    pointer-events: none;
+}
+
+.deco-sparkle {
+    top: 15%;
+    right: 10%;
+    animation: float-gentle 3s ease-in-out infinite alternate;
+}
+
+.deco-pin {
+    top: 25%;
+    left: 5%;
+    animation: float-gentle 4s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes float-gentle {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+/* ==================== 右侧 - Dashboard面板 ==================== */
+.dashboard-section {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 55%;
+}
+
+/* 背景大星星 */
+.bg-star-large {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+/* Dashboard面板 */
+.dashboard-panel {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background: #F5C518;
+    border: 3px solid #000;
+    border-radius: 24px;
+    padding: 40px 36px;
+    box-shadow: 6px 6px 0 #000;
+    transform: rotate(-2deg);
+    z-index: 2;
+}
+
+/* Dashboard标题 - 最大层级 */
+.dashboard-title {
+    font-family: 'Darumadrop One', cursive;
+    font-size: clamp(5rem, 7vw, 6rem);
+    color: #FF9F43;
+    -webkit-text-stroke: 2px #000;
+    text-shadow:
+        4px 4px 0 #000,
+        6px 6px 0 rgba(0, 0, 0, 0.3);
+    text-align: center;
+    margin-top: -60px;        /* 向上溢出面板 */
+    margin-left: -40px;
+    margin-bottom: 28px;      /* 调整与下方内容的距离 */
+    letter-spacing: 3px;
+    position: relative;
+    z-index: 10;
+}
+
+/* 按钮容器 */
+.dashboard-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Dashboard按钮 - 中等层级 */
+.dash-btn {
+    font-family: 'Darumadrop One', cursive;
+    width: 100%;
+    padding: 14px 24px;
+    background: #FFE066;
+    border: 2px solid #000;
+    border-radius: 16px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #000;
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 3;
+}
+
+.dash-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #000;
+    background: #FFD93D;
+}
+
+.dash-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+}
+
+/* 按钮文字 - 较小层级 */
+.dash-btn-text {
+    font-family: 'Darumadrop One', cursive;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    color: #000;
+    letter-spacing: 2px;
+}
+
+/* 右下角小星星 */
+.bg-star-small {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: -10px;
+    right: -20px;
+    z-index: 1;
+
+}
+
+/* ==================== 响应式适配 ==================== */
+@media (max-width: 1024px) {
+    .screen-area {
+        padding: 30px 30px;
+        gap: 24px;
+    }
+
+    .character-placeholder {
+        width: 220px;
+        height: 300px;
+    }
+
+    .dashboard-panel {
+        padding: 30px 24px;
+    }
+
+    .frame-corner {
+        width: 60px;
+        height: 60px;
+    }
+
+    .corner-tl::before, .corner-tr::before,
+    .corner-bl::before, .corner-br::before {
+        width: 60px;
+    }
+
+    .corner-tl::after, .corner-tr::after,
+    .corner-bl::after, .corner-br::after {
+        height: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .screen-area {
+        flex-direction: column;
+        padding: 60px 20px 30px;
+        gap: 20px;
+    }
+
+    .character-section {
+        max-width: 100%;
+    }
+
+    .character-placeholder {
+        width: 180px;
+        height: 240px;
+    }
+
+    .dashboard-section {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .dashboard-panel {
+        max-width: 100%;
+        transform: rotate(0deg);
+    }
+
+    .bg-star-large {
+        display: none;
+    }
+
+    .frame-corner {
+        width: 40px;
+        height: 40px;
+    }
+
+    .corner-tl::before, .corner-tr::before,
+    .corner-bl::before, .corner-br::before {
+        width: 40px;
+    }
+
+    .corner-tl::after, .corner-tr::after,
+    .corner-bl::after, .corner-br::after {
+        height: 40px;
+    }
+}
