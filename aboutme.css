@@ -1,0 +1,242 @@
+/* ==================== 基础重置和全局样式 ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Darumadrop One', 'ZCOOL KuaiLe', cursive;
+    background-color: #F5C518;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ==================== 背景波点粒子容器 ==================== */
+#particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float-drift var(--drift-duration, 8s) ease-in-out infinite alternate;
+    animation-delay: var(--drift-delay, 0s);
+}
+
+@keyframes float-drift {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(var(--drift-x, 10px), var(--drift-y, -15px)); }
+}
+
+/* ==================== 鼠标星星画布 ==================== */
+#star-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* ==================== 页面入场动画 ==================== */
+.page-transition {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    z-index: 10;
+    animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideIn {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(0); }
+}
+
+/* ==================== 主内容区域 ==================== */
+.aboutme-page {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    padding: 40px 50px;
+    gap: 50px;
+    position: relative;
+}
+
+/* ==================== 左侧 - 个人介绍区 ==================== */
+.aboutme-left {
+    flex: 1;
+    max-width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    z-index: 3;
+}
+
+/* HI ! 大标题 */
+.hi-title {
+    font-family: 'Darumadrop One', cursive;
+    font-size: clamp(5rem, 10vw, 8rem);
+    color: white;
+    -webkit-text-stroke: 3px #000;
+    text-shadow: 5px 5px 0 rgba(0, 0, 0, 0.25);
+    letter-spacing: 4px;
+    line-height: 1;
+}
+
+/* 圆形头像 */
+.avatar-frame {
+    position: relative;
+}
+
+.avatar-circle {
+    width: 140px;
+    height: 140px;
+    background: #d0d0d0;
+    border: 3px solid #000;
+    border-radius: 50%;
+    box-shadow: 4px 4px 0 #000;
+}
+
+/* 我是CC ! */
+.name-title {
+    font-family: 'ZCOOL KuaiLe', cursive;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: #000;
+    -webkit-text-stroke: 1.5px #FFFFFF;
+    letter-spacing: 2px;
+}
+
+/* 简介文字 */
+.intro-text {
+    font-family: 'ZCOOL KuaiLe', cursive;
+    font-size: 0.95rem;
+    color: #333;
+    -webkit-text-stroke: 0.5px #FFFFFF;
+    text-align: center;
+    line-height: 1.8;
+    max-width: 300px;
+}
+
+/* 竖排装饰文字 */
+.vertical-text {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'ZCOOL KuaiLe', cursive;
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.25);
+    writing-mode: vertical-rl;
+    letter-spacing: 6px;
+    pointer-events: none;
+}
+
+/* ==================== 右侧 - 标签云 ==================== */
+.aboutme-right {
+    flex: 1;
+    max-width: 55%;
+    position: relative;
+    z-index: 3;
+}
+
+/* 标签样式 */
+.tag-item {
+    position: absolute;
+    font-family: 'ZCOOL KuaiLe', cursive;
+    background: #FFE066;
+    border: 3px solid #000;
+    border-radius: 14px;
+    padding: 10px 18px;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #000;
+    white-space: nowrap;
+    transition: box-shadow 0.2s ease;
+    will-change: transform;
+    user-select: none;
+}
+
+.tag-item:hover {
+    box-shadow: 6px 6px 0 #000;
+}
+
+/* 标签点击消散动画 */
+.tag-item.popping {
+    animation: tagPop 0.45s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+    pointer-events: none;
+}
+
+@keyframes tagPop {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    30% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.1) rotate(30deg);
+    }
+}
+
+/* ==================== 响应式适配 ==================== */
+@media (max-width: 1024px) {
+    .aboutme-page {
+        padding: 30px 30px;
+        gap: 30px;
+    }
+
+    .avatar-circle {
+        width: 110px;
+        height: 110px;
+    }
+
+    .vertical-text {
+        right: 10px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .aboutme-page {
+        flex-direction: column;
+        padding: 30px 20px;
+        gap: 20px;
+    }
+
+    .aboutme-left {
+        max-width: 100%;
+        flex: none;
+    }
+
+    .aboutme-right {
+        max-width: 100%;
+        flex: auto;
+    }
+
+    .avatar-circle {
+        width: 90px;
+        height: 90px;
+    }
+
+    .vertical-text {
+        right: 5px;
+        font-size: 0.85rem;
+    }
+}

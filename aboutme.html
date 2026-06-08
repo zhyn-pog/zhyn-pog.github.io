@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Darumadrop+One&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="aboutme.css">
+</head>
+<body>
+    <!-- 背景波点粒子容器 -->
+    <div id="particles-container"></div>
+
+    <!-- 鼠标星星掉落画布 -->
+    <canvas id="star-canvas"></canvas>
+
+    <!-- 页面入场动画容器 -->
+    <div class="page-transition" id="pageTransition">
+
+        <!-- 主内容区域 -->
+        <div class="aboutme-page">
+
+            <!-- 左侧 - 个人介绍区 -->
+            <div class="aboutme-left">
+                <h1 class="hi-title">HI !</h1>
+
+                <!-- 圆形头像 -->
+                <div class="avatar-frame">
+                    <div class="avatar-circle"></div>
+                </div>
+
+                <h2 class="name-title">我是CC !</h2>
+
+                <p class="intro-text">
+                    这里是一段简单的自我介绍文字，很高兴认识你！
+                </p>
+
+                <!-- 竖排装饰文字 -->
+                <div class="vertical-text">关于我</div>
+            </div>
+
+            <!-- 右侧 - 标签云 -->
+            <div class="aboutme-right" id="tagsContainer">
+                <!-- 标签由JS动态生成 -->
+            </div>
+
+        </div>
+    </div>
+
+    <script src="aboutme.js"></script>
+</body>
+</html>
